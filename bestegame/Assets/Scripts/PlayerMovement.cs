@@ -50,15 +50,13 @@ public class PlayerMovement : MonoBehaviour
 
         isShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         isControlDown = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        if(isShiftKeyDown && Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        if(isShiftKeyDown && (Input.GetAxis("Vertical") == 1))
         {
             speed = 14f;
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && isGrounded) speed = 0f;
         }
         else
         {
             speed = 8f;
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && isGrounded) speed = 0f;
         }
         if (isControlDown)
         {
