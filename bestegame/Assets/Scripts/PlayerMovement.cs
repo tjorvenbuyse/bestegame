@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    public float stamina = 100f;
+    bool stamina2 = true;
 
     public bool isShiftKeyDown;
     public bool isControlDown;
@@ -26,16 +28,16 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // look if player is grounded
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
         if(isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
+        // player movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-
         Vector3 move = transform.right * x + transform.forward * z;
         if (move.magnitude > 1)
         {
@@ -43,21 +45,13 @@ public class PlayerMovement : MonoBehaviour
         }
         controller.Move(move * speed * Time.deltaTime);
 
+        // if player jumps
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        isShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        isControlDown = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-        if(isShiftKeyDown && (Input.GetAxis("Vertical") == 1))
-        {
-            speed = 14f;
-        }
-        else
-        {
-            speed = 8f;
-        }
+        // if player crouches
         if (isControlDown)
         {
 
@@ -69,5 +63,26 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        isShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        isControlDown = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+        // If player is sprinting
+        if (isShiftKeyDown && (Input.GetAxis("Vertical") == 1) && isGrounded && stamina > 0 && stamina2)
+        {
+            speed = 14f;
+            stamina -= 20 * Time.deltaTime;
+        }
+        else
+        {
+            speed = 8f;
+            stamina2 = false;
+            // stamina needs to reach at least 10 befor sprinting
+            if (stamina > 10) stamina2 = true;
+            // exponential stamina regen
+            if (stamina < 100) stamina += 20 * (1 + (stamina/20)) * Time.deltaTime;
+        }
     }
 }
