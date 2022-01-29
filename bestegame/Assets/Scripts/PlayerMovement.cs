@@ -79,10 +79,14 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = 8f;
             stamina2 = false;
-            // stamina needs to reach at least 10 befor sprinting
-            if (stamina > 10) stamina2 = true;
+            // stamina needs to reach at least 20 befor sprinting
+            if (stamina > 20) stamina2 = true;
             // exponential stamina regen
-            if (stamina < 100) stamina += 20 * (1 + (stamina/20)) * Time.deltaTime;
+            if (stamina < 100)
+            {
+                stamina += 4 * (1 + (stamina / 20)) * Time.deltaTime;
+                if (stamina > 100) stamina = 100;
+            }
         }
     }
 }
