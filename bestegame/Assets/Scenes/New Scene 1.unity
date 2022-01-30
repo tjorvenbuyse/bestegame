@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9fc56f0392639448997f613c2f8d1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1000
+  mouseSensitivity: 200
   playerBody: {fileID: 206615105}
 --- !u!81 &1288797148
 AudioListener:
@@ -2440,6 +2440,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1288797149}
     - target: {fileID: 3460886507821153587, guid: 824b884b915a3724fbe5859bac811a00, type: 3}
+      propertyPath: maxAmmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460886507821153587, guid: 824b884b915a3724fbe5859bac811a00, type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 160570316}
@@ -2516,6 +2520,10 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 1288797149}
+    - target: {fileID: 8066442015475347329, guid: 3f56586e7c51d1346a8a05c37f8db475, type: 3}
+      propertyPath: maxAmmo
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8066442015475347329, guid: 3f56586e7c51d1346a8a05c37f8db475, type: 3}
       propertyPath: animator
       value: 

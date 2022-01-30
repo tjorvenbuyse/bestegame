@@ -90,6 +90,15 @@ public class WeaponSwitching : MonoBehaviour
             if(i == selectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
+                GameObject gameObject = GameObject.FindWithTag("MainCamera");
+                if (weapon.gameObject.tag == "Grenade")
+                {
+                    gameObject.GetComponent<GrenadeThrower>().enabled = true;
+                }
+                else
+                {
+                    gameObject.GetComponent<GrenadeThrower>().enabled = false;
+                }
             }
             else
             {

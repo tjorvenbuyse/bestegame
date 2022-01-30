@@ -45,6 +45,10 @@ public class Gun : MonoBehaviour
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
+        if(Input.GetKeyDown(KeyCode.R) && currentAmmo != maxAmmo)
+        {
+            StartCoroutine(Reload());
+        }
     }
 
     void Shoot()
