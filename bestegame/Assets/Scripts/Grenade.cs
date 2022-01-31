@@ -50,7 +50,17 @@ public class Grenade : MonoBehaviour
             }
         }
 
-        Collider[] collidersToMove = Physics.OverlapSphere(transform.position, blastRadius);
+        foreach (Collider nearbyObject in collidersToDamage)
+        {
+            DPSTarget dpsTarget = nearbyObject.transform.GetComponent<DPSTarget>();
+            if (dpsTarget != null)
+            {
+                distance = Vector3.Distance(dpsTarget.transform.position, gameObject.transform.position);
+                dpsTarget.dpsScore(explosionDamage / (distance * 2));
+            }
+        }
+
+            Collider[] collidersToMove = Physics.OverlapSphere(transform.position, blastRadius);
         foreach(Collider nearbyObject in collidersToMove)
         {
             // Add force
