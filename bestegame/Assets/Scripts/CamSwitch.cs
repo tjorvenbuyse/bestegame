@@ -22,5 +22,10 @@ public class CamSwitch : MonoBehaviour
             cam2.SetActive(true);
             cam1.SetActive(false);
         }
+        if (Input.GetKey(KeyCode.V))
+        {
+            cam1.SetActive(true);
+            cam2.SetActive(false);
+        }
     }
 }

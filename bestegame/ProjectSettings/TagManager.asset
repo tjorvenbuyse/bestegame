@@ -7,6 +7,9 @@ TagManager:
   - Floor
   - Grenade
   - Head
+  - Arm
+  - Leg
+  - Feet
   layers:
   - Default
   - TransparentFX

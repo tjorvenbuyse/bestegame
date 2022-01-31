@@ -5,6 +5,11 @@ public class Gun : MonoBehaviour
 {
 
     public float damage = 10f;
+    float headShotMultiplier = 2.5f;
+    float armShotMultiplier = 0.8f;
+    float legShotMultiplier = 0.6f;
+    float feetShotMultiplier = 0.5f;
+
     public float range = 100f;
     public float fireRate = 5f;
     public float impactForce = 30f;
@@ -66,14 +71,56 @@ public class Gun : MonoBehaviour
             Target target = hit.transform.GetComponent<Target>();
             if(target != null)
             {
-                target.TakeDamage(damage);
+                // Damage
+                // head shot
+                if (hit.transform.tag == "Head")
+                {
+                    target.TakeDamage(damage * headShotMultiplier);
+                } // arm shot
+                else if(hit.transform.tag == "Arm")
+                {
+                    target.TakeDamage(damage * armShotMultiplier);
+                } // leg shot
+                else if (hit.transform.tag == "Leg")
+                {
+                    target.TakeDamage(damage * legShotMultiplier);
+                } // feet shot
+                else if (hit.transform.tag == "Feet")
+                {
+                    target.TakeDamage(damage * feetShotMultiplier);
+                }
+                else // body shot
+                {
+                    target.TakeDamage(damage);
+                }
             }
 
             // for DPSTarget
             DPSTarget dpsTarget = hit.transform.GetComponent<DPSTarget>();
             if (dpsTarget != null)
             {
-                dpsTarget.dpsScore(damage);
+                // Damage
+                // head shot
+                if (hit.transform.tag == "Head")
+                {
+                    dpsTarget.dpsScore(damage * headShotMultiplier);
+                } // arm shot
+                else if (hit.transform.tag == "Arm")
+                {
+                    dpsTarget.dpsScore(damage * armShotMultiplier);
+                } // leg shot
+                else if (hit.transform.tag == "Leg")
+                {
+                    dpsTarget.dpsScore(damage * legShotMultiplier);
+                } // feet shot
+                else if (hit.transform.tag == "Feet")
+                {
+                    dpsTarget.dpsScore(damage * feetShotMultiplier);
+                }
+                else // body shot
+                {
+                    dpsTarget.dpsScore(damage);
+                }
             }
 
             if (hit.rigidbody != null)
