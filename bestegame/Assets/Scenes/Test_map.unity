@@ -398,6 +398,7 @@ MonoBehaviour:
   gravity: -19.62
   jumpHeight: 2
   stamina: 100
+  NormalHeight: 1.8
   isShiftKeyDown: 0
   isControlDown: 0
   groundCheck: {fileID: 1740010053}
@@ -1346,6 +1347,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9e38296393298fd4ca2383d9c999493a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9e38296393298fd4ca2383d9c999493a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1404,6 +1409,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9e38296393298fd4ca2383d9c999493a, type: 3}
       propertyPath: m_Name
       value: cilinder2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9e38296393298fd4ca2383d9c999493a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e38296393298fd4ca2383d9c999493a, type: 3}
@@ -3433,7 +3442,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1405917076}
   - component: {fileID: 1405917078}
-  - component: {fileID: 1405917077}
   m_Layer: 3
   m_Name: Dps_Wall_Cam
   m_TagString: Untagged
@@ -3455,14 +3463,6 @@ Transform:
   m_Father: {fileID: 1971284893}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1405917077
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1405917075}
-  m_Enabled: 1
 --- !u!20 &1405917078
 Camera:
   m_ObjectHideFlags: 0
@@ -3855,7 +3855,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1544329691}
   - component: {fileID: 1544329693}
-  - component: {fileID: 1544329692}
   m_Layer: 3
   m_Name: Dps_Wall_Cam
   m_TagString: Untagged
@@ -3877,14 +3876,6 @@ Transform:
   m_Father: {fileID: 74949694}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1544329692
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1544329690}
-  m_Enabled: 1
 --- !u!20 &1544329693
 Camera:
   m_ObjectHideFlags: 0

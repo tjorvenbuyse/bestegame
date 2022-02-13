@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public float stamina = 100f;
+    public float NormalHeight = 1.8f;
     bool stamina2 = true;
 
     public bool isShiftKeyDown;
@@ -21,6 +22,15 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     public Transform playerBody;
+
+    //Crouching
+    private float CrouchTime = 0.5f;
+    private float crouchHeight = 1f;
+    private Vector3 standingCenter = new Vector3(0, 1, 0);
+    private Vector3 crouchingCenter = new Vector3(0, 1.5f, 0);
+    private bool isCrouching;
+    private bool duringCrouchAnimation;
+
 
     Vector3 velocity;
     bool isGrounded;
@@ -52,14 +62,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // if player crouches
-        if (isControlDown)
+        if((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftControl)) && isGrounded && !duringCrouchAnimation)
         {
-
+            StartCoroutine(Crouch());
         }
-        else
-        {
 
-        }
+
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
@@ -88,5 +96,34 @@ public class PlayerMovement : MonoBehaviour
                 if (stamina > 100) stamina = 100;
             }
         }
+    }
+
+    //Coroutine (used for delaying a event while everything else is still working)
+    IEnumerator Crouch()
+    {
+        Debug.Log("start crouching");
+        duringCrouchAnimation = true;
+
+        float timeElapsed = 0;
+        float targetHeight = isCrouching ? NormalHeight : crouchHeight;
+        float currentHeight = controller.height;
+        Vector3 targetCenter = isCrouching ? standingCenter : crouchingCenter;
+        Vector3 currentCenter = controller.center;
+
+        while(timeElapsed < CrouchTime)
+        {
+            controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / CrouchTime);
+            controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / CrouchTime);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        controller.height = targetHeight;
+        controller.center = targetCenter;
+
+        isCrouching = !isCrouching;
+
+        duringCrouchAnimation = false;
+        Debug.Log("finished crouching");
     }
 }
