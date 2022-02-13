@@ -394,11 +394,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 206615104}
-  speed: 12
+  normalSpeed: 5
+  sprintSpeed: 8
+  crouchSpeed: 2.5
+  speed: 5
   gravity: -19.62
   jumpHeight: 2
   stamina: 100
-  NormalHeight: 1.8
   isShiftKeyDown: 0
   isControlDown: 0
   groundCheck: {fileID: 1740010053}
@@ -407,6 +409,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerBody: {fileID: 206615105}
+  CrouchTime: 0.3
+  crouchHeight: 1.4
+  NormalHeight: 1.8
+  standingCenter: {x: 0, y: 1, z: 0}
+  crouchingCenter: {x: 0, y: 1.5, z: 0}
 --- !u!1 &225132818 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5568371526223589888, guid: 970bfce6dd7f4744f9c77ab7344a4c87, type: 3}

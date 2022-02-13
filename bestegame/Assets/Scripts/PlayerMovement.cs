@@ -7,11 +7,17 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
-    public float stamina = 100f;
-    public float NormalHeight = 1.8f;
+    [Header("Movement Parameters")]
+    [SerializeField] private float normalSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 8f;
+    [SerializeField] private float crouchSpeed = 2.5f;
+    [SerializeField]
+    private float speed = 8;
+
+    [Header("Jump Parameters")]
+    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] public float jumpHeight = 3f;
+    [SerializeField] public float stamina = 100f;
     bool stamina2 = true;
 
     public bool isShiftKeyDown;
@@ -23,13 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform playerBody;
 
-    //Crouching
-    private float CrouchTime = 0.5f;
-    private float crouchHeight = 1f;
-    private Vector3 standingCenter = new Vector3(0, 1, 0);
-    private Vector3 crouchingCenter = new Vector3(0, 1.5f, 0);
+    [Header("Crouch Parameters")]
+    [SerializeField] private float CrouchTime = 0.3f;
+    [SerializeField] private float crouchHeight = 1.4f;
+    [SerializeField] public float NormalHeight = 1.8f;
+    [SerializeField] private Vector3 standingCenter = new Vector3(0, 1, 0);
+    [SerializeField] private Vector3 crouchingCenter = new Vector3(0, 1.5f, 0);
     private bool isCrouching;
     private bool duringCrouchAnimation;
+    private bool wantsToCrouch;
 
 
     Vector3 velocity;
@@ -61,10 +69,15 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        if(Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            wantsToCrouch = true;
+        }
         // if player crouches
-        if((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftControl)) && isGrounded && !duringCrouchAnimation)
+        if(wantsToCrouch && isGrounded && !duringCrouchAnimation)
         {
             StartCoroutine(Crouch());
+            wantsToCrouch = false;
         }
 
 
@@ -77,15 +90,22 @@ public class PlayerMovement : MonoBehaviour
     {
         isShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         isControlDown = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+
+        if(isCrouching)
+        {
+            speed = crouchSpeed;
+            return;
+        }
+
         // If player is sprinting
         if (isShiftKeyDown && (Input.GetAxis("Vertical") == 1) && isGrounded && stamina > 0 && stamina2)
         {
-            speed = 14f;
+            speed = sprintSpeed;
             stamina -= 20 * Time.deltaTime;
         }
         else
         {
-            speed = 8f;
+            speed = normalSpeed;
             stamina2 = false;
             // stamina needs to reach at least 20 befor sprinting
             if (stamina > 20) stamina2 = true;
